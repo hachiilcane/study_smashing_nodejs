@@ -1,0 +1,8 @@
+{
+    "name": "tweet-client-sa",
+    "description": "An HTTP tweets client using superagent",
+    "version": "0.0.1",
+    "dependencies": {
+	"superagent": "0.3.0"
+    }
+}
