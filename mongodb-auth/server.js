@@ -2,7 +2,8 @@
  * Module dependencies
  */
 var express = require('express'),
-mongodb = require('mongodb');
+mongodb = require('mongodb'),
+ObjectId = mongodb.ObjectID;
 
 /**
  * Set up application.
@@ -22,7 +23,7 @@ app.use(express.session({ secret: 'my secret' }));
 app.use(function (req, res, next) {
     if (req.session.loggedIn) {
 	res.local('authenticated', true);
-	app.users.findOne({ _id: { $oid: req.session.loggedIn } }, function (err, doc) {
+	app.users.findOne({ _id: new ObjectId(req.session.loggedIn) }, function (err, doc) {
 	    if (err) return next(err);
 	    res.local('me', doc);
 	    next();
@@ -65,11 +66,6 @@ app.get('/login/:signupEmail', function (req, res) {
 app.get('/signup', function (req, res) {
     res.render('signup');
 });
-
-/**
- * Signup route
- */
-//app.listen(3000);
 
 /**
  * Connect to the datebase.
@@ -127,3 +123,5 @@ app.get('/logout', function (req, res) {
     req.session.loggedIn = null;
     res.redirect('/');
 });
+
+app.listen(3000);
