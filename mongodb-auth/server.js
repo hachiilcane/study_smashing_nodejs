@@ -123,5 +123,3 @@ app.get('/logout', function (req, res) {
     req.session.loggedIn = null;
     res.redirect('/');
 });
-
-app.listen(3000);
